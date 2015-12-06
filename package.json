@@ -7,7 +7,8 @@
     "start": "npm run css:dev & npm run js:dev & npm run http-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "css:dev": "./node_modules/.bin/watch 'sass src/scss/main.scss:src/css/main.css' src/scss",
-    "js:dev": "./node_modules/.bin/watch './node_modules/.bin/browserify src/js/main.js -t [ babelify --presets [ es2015 react ] ] -o src/bundle.js --debug'",
+    
+    "js:dev": "./node_modules/.bin/watchify src/js/main.js -v -d -t [ babelify --presets [ es2015 react ] ] -o src/bundle.js",
     "http-server": "http-server ./src -p 9000 --cors"
   },
   "author": "",
@@ -19,11 +20,13 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
+    "basilisk": "^0.3.9",
     "browserify": "^12.0.1",
     "http-server": "^0.8.5",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "watch": "^0.16.0"
+    "watch": "^0.16.0",
+    "watchify": "^3.6.1"
   },
   "dependencies": {
     "bluebird": "^2.10.2",
