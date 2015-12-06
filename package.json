@@ -4,8 +4,11 @@
   "description": "",
   "main": "dist/js/main.js",
   "scripts": {
+    "start": "npm run css:dev & npm run js:dev & npm run http-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "css:dev":"./node_modules/.bin/watch 'sass src/scss/main.scss:src/css/main.css' src/scss"
+    "css:dev": "./node_modules/.bin/watch 'sass src/scss/main.scss:src/css/main.css' src/scss",
+    "js:dev": "./node_modules/.bin/watch './node_modules/.bin/browserify src/js/main.js -t [ babelify --presets [ es2015 react ] ] -o src/bundle.js --debug'",
+    "http-server": "http-server ./src -p 9000 --cors"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +20,14 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
+    "http-server": "^0.8.5",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "watch": "^0.16.0"
+  },
+  "dependencies": {
+    "bluebird": "^2.10.2",
+    "superagent": "^1.5.0",
+    "superagent-bluebird-promise": "^2.1.1"
   }
 }

@@ -64,6 +64,7 @@ body {
   text-overflow: ellipsis; }
 
 .productlist__item__basketpricing {
-  height: 100px; }
+  height: 100px;
+  font-size: 0.75rem; }
 
 /*# sourceMappingURL=main.css.map */
