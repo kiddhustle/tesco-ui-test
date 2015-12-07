@@ -16,7 +16,7 @@
     "clean":"rm -rf ./dist/* && mkdir -p ./dist/js/ ./dist/css/ && cp ./src/index.html ./dist && cp ./src/data.json ./dist",
     "clean:dev":"rm -rf ./src/bundle.js"
   },
-  "author": "",
+  "author": "kiddhustle",
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.3.13",
