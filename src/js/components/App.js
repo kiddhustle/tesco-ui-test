@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import basilisk from 'basilisk';
 // components
 import Product from './Product';
 import request from 'superagent-bluebird-promise';
@@ -17,14 +16,6 @@ const App = React.createClass({
 			basket:[],
 			filterOption:null
 		};
-
-		// var store = new AppStore({
-		// 	productlist:basilisk.Vector.from([]),
-		// 	basket:basilisk.Vector.from([]),
-		// 	filterOption:null
-		// });
-
-		// return {AppStore:store};
 	},
 	componentDidMount:function(){
 		this.fetchData();
@@ -44,15 +35,63 @@ const App = React.createClass({
 			);
 	},
 	basketRemoveProduct:function(productId){
+		let oProduct = this.findProductById( parseInt(productId) );
+		if(oProduct === undefined){return;}
+		oProduct.BasketQty = 0;
 
+		let updatedList = this.state.productlist.map(function(currProduct){
+			if(currProduct.Id === oProduct.Id){
+				return oProduct;
+			}
+			else {
+				return currProduct;
+			}
+		});
+
+		this.setState({productlist:updatedList});
 	},
-	basketAddProduct:function(productId){
+	basketIncrementProduct:function(productId){
 		let oProduct = this.findProductById(productId);
-		if(oProduct){
+		if(oProduct === undefined){ return;};
 
-		}
+		oProduct.BasketQty = oProduct.BasketQty + 1;
+
+		let updatedList = this.state.productlist.map(function(currProduct){
+			if(currProduct.Id === oProduct.Id){
+				return oProduct;
+			}
+			else {
+				return currProduct;
+			}
+		});
+		this.setState({productlist:updatedList});
 	},
-	handleClickAddBtn:function(e){
+
+	basketDecrementProduct:function(productId){
+		let oProduct = this.findProductById(productId);
+		if(oProduct === undefined){ return;};
+
+		oProduct.BasketQty = oProduct.BasketQty - 1;
+
+		let updatedList = this.state.productlist.map(function(currProduct){
+			if(currProduct.Id === oProduct.Id){
+				return oProduct;
+			}
+			else {
+				return currProduct;
+			}
+		});
+		this.setState({productlist:updatedList});
+	},
+	basketGetNumItems:function(){
+		let aItems = this.getProductsInBasket();
+		let iNum = aItems.reduce(
+			(prev, current, index) => prev + current.BasketQty,
+			0
+		);
+		return iNum;
+	},
+	handleClickAddBtn:function(e, cb){
 		// console.log(e);
 		let oData = e.target.dataset;
 		let oProduct = this.findProductById( parseInt(oData.productId) );
@@ -71,6 +110,9 @@ const App = React.createClass({
 		});
 
 		this.setState({productlist:updatedList});
+		if(cb){
+			cb()
+		}
 	},
 	findProductById :function(productId){
 		let aResult = this.state.productlist.filter( this.fnFilterById(productId) );
@@ -131,13 +173,15 @@ const App = React.createClass({
 						<input value="Go" type="button"/>
 					</nav>
 					<div className="productlist clearfix">
-						{filteredProducts.map( (item) => <Product {...item} key={this.props.Id} handleClickAddBtn={this.handleClickAddBtn} /> )}
+						{filteredProducts.map( (product) => <Product {...product} viewType='list' key={product.Id} handleClickAddBtn={this.handleClickAddBtn} basketRemoveProduct={this.basketRemoveProduct} /> )}
 					</div>	
 				</section>
 				
-				<aside className="sidebar">
-					<h2>Basket</h2>
-					<div>{this.getProductsInBasket().map((product) => (<p>{product.Name} x {product.BasketQty}</p>) )}</div>
+				<aside className="basket">
+					<h2 className="basket__header">Basket: {this.basketGetNumItems()} items</h2>
+					<div className="basket__contents">{this.getProductsInBasket().map((product) => (
+						<Product {...product} viewType='basket' key={product.Id} handleClickAddBtn={this.handleClickAddBtn} basketRemoveProduct={this.basketRemoveProduct} basketIncrementProduct={this.basketIncrementProduct} basketDecrementProduct={this.basketDecrementProduct} />
+						) )}</div>
 				</aside>
 			</div>
 			);

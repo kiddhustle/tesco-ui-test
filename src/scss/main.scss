@@ -1,14 +1,14 @@
 // vars
-$tesco-blue: #0000ff;
-
+$tesco-blue: #00539f;
+$reward-red:#aa0000;
 *, *:after, *:before {
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box;
 }
 
 body {
-	background:#000;
-	color:#fff;
+	// background:#000;
+	// color:#fff;
 	font-family:sans-serif;
 	padding:0;
 	margin:0;
@@ -17,22 +17,16 @@ body {
 .app {
 	min-height:600px;
 }
-.main, .sidebar {
+.main, .basket {
 	float:left;
 	min-height:100%;
 	// padding:20rem;
 }
 
 .main {
-	width:75%;
+	// width:75%;
 	
-	background:red;
-}
-
-.sidebar {
-	width:25%;
-	// padding-left:5%;
-	background:blue;
+	// background:red;
 }
 
 .clearfix:after {
@@ -58,10 +52,12 @@ body {
 }
 
 
-.productlist {}
+.productlist {
+	margin-top:2rem;
+}
 .productlist__item {
 	text-align:center;
-	width:160px;
+	width:180px;
 	float:left;
 }
 
@@ -69,30 +65,56 @@ body {
 	outline:solid 1px #cccccc;
 	padding:0 0.5rem;
 }
+
+.productlist__item__info,
+.productlist__item__basketpricing {
+	padding:1rem;
+}
 .productlist__item__info {
-	height:250px;
+	padding:1rem;
+	height:270px;
+	font-size:0.75rem;
 }
 
 .productlist__item__info__name {
-	font-size:0.75rem;
+	
 	font-weight:normal;
 	height:3rem;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
+
+.productlist__item__info__promos__item__detail{
+
+}
+
+.productlist__item__info__promos__item__detail--reward{
+	color:$reward-red;
+}
 .productlist__item__basketpricing {
 	height:160px;
 	font-size:0.75rem;
 }
-
-
+.productlist__item__basketpricing__price {
+	padding:0.5rem;
+}
+.productlist__item__basketpricing__price__item{
+	float:left;
+	font-weight:bold;
+	font-size:1rem;
+}
+.productlist__item__basketpricing__price__unit {
+	float:right;
+}
 .productlist__item__basketpricing__controls{
 	max-width:100%;
 	text-align:center;
+	border-collapse:collapse;
 }
 
 .productlist__item__basketpricing__controls__qty {
 	width:2rem;
+	text-align:center;
 }
 
 .productlist__item__basketpricing__controls__btnadd {
@@ -100,4 +122,80 @@ body {
 	color:#fff;
 	padding:0.25rem;
 	cursor:pointer;
+	text-decoration:none;
+}
+
+/**
+ * Colours
+ */
+
+.productlist__item__basketpricing__controls__decrement,
+.productlist__item__basketpricing__controls__increment {
+	color:$tesco-blue;
+	cursor:pointer;
+}
+
+.basket {
+	// width:25%;
+	// padding-left:5%;
+	padding:1rem 1rem 1rem 2.5%;
+}
+.basket__header {
+	background:$tesco-blue;
+	color:#fff;
+	margin:0;
+	padding:0.5rem;
+}
+.basket__contents {
+	border:solid 1px #ccc;
+	padding-bottom:4rem;
+}
+
+.basket__contents__item {
+	padding:0.5rem;
+	border-bottom:solid 1px #ccc;
+}
+
+.basket__contents__item__img,
+.basket__contents__item__name,
+.basket__contents__item__removebtn {
+	display:inline-block;
+	text-align:left;
+	vertical-align:middle;
+}
+
+.basket__contents__item__img {
+	width:30%;
+}
+.basket__contents__item__name {
+	width:50%;
+	padding-left:5%;
+	max-height:4.5rem;
+	overflow:hidden;
+	text-overflow:ellipsis;
+
+}
+.basket__contents__item__removebtn {
+	text-align:right;
+	vertical-align:top;
+}
+.basket__contents__item__controls {
+	width:50%;
+}
+
+.basket__contents__item__subtotal {
+	text-align:right;
+	font-weight:bold;
+}
+
+@media screen and (min-width:721px) {
+	.basket {
+		width:35%;
+	}
+
+	.main {
+		width:65%;
+		
+		// background:red;
+	}
 }
